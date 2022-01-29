@@ -1,13 +1,12 @@
 #Apresentação
-#from concurrent.futures.process import _SafeQueue
-#from tkinter.filedialog import SaveFileDialog
-#from typing_extensions import Self
+
 from random import randint
 
 
 print('=-'*15,'BEM VINDO AO BANCO JEYSONCARD.', '=-'*15)
 
 print('=-'*15,'Preencha seus dados corretamente para prosseguir','=-'*15)
+
 #Cliente
 class Cliente():
     def __init__(self, Nome, Cartão, Cpf, Senha, Saldo):
@@ -35,9 +34,7 @@ class Cliente():
         Dados = self.nome, self.cartao, self.cpf, self.senha, self.saldo
         return Dados
 
-    def saida(self):
-        self.saida = 'obrigado, Volte sempre'
-        return self.saida
+
 
 #começo
 resp = ' '
@@ -53,8 +50,10 @@ lista = [['JEYSON SARAIVA VIEIRA', '086409511', '55385554960', '307119', 3200],
 
 novo_usuario = list()
 #Informações do Cliente
+nome = ' '
 if resp == 'U':
     nome = str.upper(input('Digite seu nome completo: '))
+
     if nome == lista[0][0]:
         posiçao = 0
 
@@ -63,18 +62,28 @@ if resp == 'U':
 
     elif nome == lista[2][0]:
         posiçao = 2
-
+    
     if nome == lista[0][0] or lista[1][0] or lista[2][0]:
-        cartao = int(input('Digite o número do seu cartão: '))
-        cpf = int(input('Digite o número do seu cpf: '))
-        senha = int(input('Digite sua senha: '))
-        saldo = float(input('Digite seu saldo: '))
-        print(lista[posiçao])
+        cartao = cpf = senha = ' '
+        while cartao != lista[posiçao][1]:
+            cartao = str(input('Digite o número do seu cartão: '))
+            if cartao != lista[posiçao][1]:
+                print('NÚMERO DO CARTÃO NÃO CORRESPONDETE! TENTE NOVAMENTE.')
+        while cpf != lista[posiçao][2]:
+            cpf = str(input('Digite o número do seu cpf: '))
+            if cpf != lista[posiçao][2]:
+                print('NÚMERO DO CPF NÃO CORRESPONDENTE! TENTE NOVAMENTE.')
+        while senha != lista[posiçao][3]:
+            senha = str(input('Digite sua senha: '))
+            if senha != lista[posiçao][3]:
+                print('SENHA INCORRETA, TENTE NOVAMENTE.')
+
+        #print(lista[posiçao])
         cliente = Cliente(Nome = lista[posiçao][0], Cartão = lista[posiçao][1], Cpf = lista[posiçao][2], Senha = lista[posiçao][3], Saldo = lista[posiçao][4])
 
 
-    else:
-        print('SEU NOME NÃO FOI ENCONTRADO NO BANCO DE DADOS, CORRIGA SEU NOME OU FAÇA UM CADASTRO PARA VOCÊ.')
+    #else:
+     #   print('SEU NOME NÃO FOI ENCONTRADO NO BANCO DE DADOS, CORRIGA SEU NOME OU FAÇA UM CADASTRO COM SEU NOME NO BANCO.')
 
 if resp == 'N':
     print('=-'*15, 'VAMOS FAZER UM CADASTRO PARA VOCÊ', '=-'*15)
@@ -83,39 +92,40 @@ if resp == 'N':
     novo_usuario.append(int(input('Digite seu cpf: ')))
     novo_usuario.append(int(input('Crie uma senha de 6 digitos: ')))
     novo_usuario.append(float(input('Digite seu saldo inicial: ')))
-    print(novo_usuario)
+    #print(novo_usuario)
     cliente = Cliente(Nome = novo_usuario[0], Cartão = novo_usuario[1], Cpf = novo_usuario[2], Senha = novo_usuario[3], Saldo = novo_usuario[4])
 
 
 
-#cliente_novo = Cliente(Nome = lista[3][0], Cartão = lista[3][1], Cpf = lista[3][2], Senha = lista[3][3], Saldo = lista[3][4])
-
-#Interação com a maquina
+# Interação com a maquina
 print('[1] DEPOSITAR '
       '[2] SACAR '
       '[3] DADOS '
-      '[4] SALDO '
-      '[5] SAIR'
-)
-resp = ' '
-while resp not in '12345':
-    resp = str(input('Qual dessas opções deseja escolher?: '))
-if resp == '1':
-    print(cliente.saldo)
-    depo = float(input('Qual valor deseja depositar?: '))
-    print(cliente.deposito())
+      '[4] SALDO ')
 
-elif resp == '2':
-    print(cliente.saldo)
-    saque = float(input('Qual valor deseja sacar?: '))
-    print(cliente.saque())
 
-elif resp == '3':
-    print(cliente.dados())
+while True:
+    resp = fim = ' '
+    while resp not in '1234':
+        resp = str(input('Qual dessas opções deseja escolher?: '))
+    if resp == '1':
+        print(cliente.saldo)
+        depo = float(input('Qual valor deseja depositar?: '))
+        print(cliente.deposito())
 
-elif resp == '4':
-    print(cliente.saldo)
+    elif resp == '2':
+        print(cliente.saldo)
+        saque = float(input('Qual valor deseja sacar?: '))
+        print(cliente.saque())
 
-elif resp == '5':
-    print(cliente.saida)
-#Fim
+    elif resp == '3':
+        print(cliente.dados())
+
+    elif resp == '4':
+        print(cliente.saldo)
+
+    fim = str.upper(input('Deseja continuar?[S/N]: '))
+    if fim == 'N':
+        print('=-'*15,'OBRIGADO, VOLTE SEMPRE!','=-'*15)
+        break
+    #Fim
