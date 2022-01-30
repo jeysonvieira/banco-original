@@ -54,6 +54,7 @@ nome = ' '
 if resp == 'U':
     nome = str.upper(input('Digite seu nome completo: '))
 
+
     if nome == lista[0][0]:
         posiçao = 0
 
@@ -62,7 +63,7 @@ if resp == 'U':
 
     elif nome == lista[2][0]:
         posiçao = 2
-    
+        
     if nome == lista[0][0] or lista[1][0] or lista[2][0]:
         cartao = cpf = senha = ' '
         while cartao != lista[posiçao][1]:
@@ -82,8 +83,8 @@ if resp == 'U':
         cliente = Cliente(Nome = lista[posiçao][0], Cartão = lista[posiçao][1], Cpf = lista[posiçao][2], Senha = lista[posiçao][3], Saldo = lista[posiçao][4])
 
 
-    #else:
-     #   print('SEU NOME NÃO FOI ENCONTRADO NO BANCO DE DADOS, CORRIGA SEU NOME OU FAÇA UM CADASTRO COM SEU NOME NO BANCO.')
+    else:
+        print('SEU NOME NÃO FOI ENCONTRADO NO BANCO DE DADOS, CORRIGA SEU NOME OU FAÇA UM CADASTRO COM SEU NOME NO BANCO.')
 
 if resp == 'N':
     print('=-'*15, 'VAMOS FAZER UM CADASTRO PARA VOCÊ', '=-'*15)
